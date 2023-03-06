@@ -1,0 +1,9 @@
+---
+### Example
+version: "3"
+services:
+  my-python-app:
+    build: .
+    environment:
+      - API_TOKEN=
+...
