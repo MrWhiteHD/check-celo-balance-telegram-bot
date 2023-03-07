@@ -14,8 +14,8 @@ Documentation for the Telegram celo alert bot.
 - OR you can adapt API_TOKEN in the [celo_balane_bot.py](https://github.com/MrWhiteHD/check-celo-balance-telegram-bot/blob/main/celo_balane_bot.py)
 
 ## 3. Important things before start
-- The file [users.json](https://github.com/MrWhiteHD/check-celo-balance-telegram-bot/blob/main/users.json) store all user data. It is recommended to run the bot in a container, but you need to mount the file in an external storage, and adapt the file path in the code so the user data dont get lost after a container update.
-- Add all your Celo addresses into the file [celo_accounts.json](https://github.com/MrWhiteHD/check-celo-balance-telegram-bot/blob/main/celo_accounts.json) so the bot can make api requests for the addresses.
+- The file [users.json](https://github.com/MrWhiteHD/check-celo-balance-telegram-bot/blob/main/bot_data/users.json) store all user data. It is recommended to run the bot in a container and mount the "bot_data" folder to an external storage so user data dont get lost after a container update.
+- Add all your Celo addresses into the file [celo_accounts.json](https://github.com/MrWhiteHD/check-celo-balance-telegram-bot/blob/main/bot_data/celo_accounts.json) so the bot can make api requests for the addresses.
 - The bot is using [Celo Explorer](https://explorer.celo.org/) for the api requests.
 
 ## 4. Run the bot and have fun
