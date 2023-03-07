@@ -31,12 +31,12 @@ def start_alerting(message):
     new_user = {"Name": name, "user_id": user_id}
     # Append the new user to the accounts list
     data["users"].append(new_user)
-    # Save the updated accounts file
+    # Save the updated users.json file
     with open('users.json', 'w') as f:
         json.dump(data, f)
         bot.reply_to(message, f"The alerting is turned on and you will get notifications.")
 
-# /stop_alerting command to delete user_id and user_name in the users.json, so they dont get any notifications anymore
+# /stop_alerting command to delete user_id and user_name in the "users.json", so they dont get any notifications anymore
 @bot.message_handler(commands=['stop_alerting'])
 def stop_alerting(message):
     # Get the name and user ID from the command arguments
@@ -53,11 +53,11 @@ def stop_alerting(message):
         if user_index is None:
             bot.reply_to(message, f"The alerting is already turned off.")
             return
-        # Delete the user object from the accounts list
+        # Delete the user object from the "users.json" list
         del data['users'][user_index]
         with open('users.json', 'w') as f:
             json.dump(data, f)
-        bot.reply_to(message, f"The alerting is already turned off and you won't get any notifications anymore..")
+        bot.reply_to(message, f"The alerting is turned off and you won't get any notifications anymore..")
 
 # /check_balance commad to trigger manually a api request for all Celo addresses from "celo_accounts.json"
 @bot.message_handler(commands=['check_balance'])
@@ -82,7 +82,7 @@ def check_Balance(message):
             message_reply = f"The balance of <b>{name}</b>\nis <b>{balance_formatted}</b>"
             bot.reply_to(message, message_reply, parse_mode='HTML')
 
-# Run a api request, get current  and create a alert message. The function is scheduled to run at a regular interval from the schedule.every().minutes.do() method
+# Run a api request, get current balance and create a alert message. The function is scheduled to run at a regular interval from the schedule.every().minutes.do() method
 def check_api():
     with open("celo_accounts.json", "r") as f:
         data = json.load(f)
