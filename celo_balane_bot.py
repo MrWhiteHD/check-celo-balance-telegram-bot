@@ -57,7 +57,7 @@ def stop_alerting(message):
         del data['users'][user_index]
         with open('users.json', 'w') as f:
             json.dump(data, f)
-        bot.reply_to(message, f"The alerting is turned off and you won't get any notifications anymore..")
+        bot.reply_to(message, f"The alerting is turned off and you won't get any notifications anymore.")
 
 # /check_balance commad to trigger manually a api request for all Celo addresses from "celo_accounts.json"
 @bot.message_handler(commands=['check_balance'])
