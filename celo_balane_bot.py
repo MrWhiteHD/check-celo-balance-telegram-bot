@@ -21,7 +21,7 @@ def start_alerting(message):
     name = message.chat.username
     user_id = message.chat.id
     # Load the accounts JSON file
-    with open('users.json', 'r') as f:
+    with open('/bot_data/users.json', 'r') as f:
         data = json.load(f)
     user_ids = [user['user_id'] for user in data['users']]
     if user_id in user_ids:
@@ -32,7 +32,7 @@ def start_alerting(message):
     # Append the new user to the accounts list
     data["users"].append(new_user)
     # Save the updated users.json file
-    with open('users.json', 'w') as f:
+    with open('/bot_data/users.json', 'w') as f:
         json.dump(data, f)
         bot.reply_to(message, f"The alerting is turned on and you will get notifications.")
 
@@ -42,7 +42,7 @@ def stop_alerting(message):
     # Get the name and user ID from the command arguments
     user_id = message.chat.id
     # Load the accounts JSON file
-    with open('users.json', 'r') as f:
+    with open('/bot_data/users.json', 'r') as f:
         data = json.load(f)
         # Check if the user ID exists in the file
         user_index = None
@@ -55,7 +55,7 @@ def stop_alerting(message):
             return
         # Delete the user object from the "users.json" list
         del data['users'][user_index]
-        with open('users.json', 'w') as f:
+        with open('/bot_data/users.json', 'w') as f:
             json.dump(data, f)
         bot.reply_to(message, f"The alerting is turned off and you won't get any notifications anymore.")
 
@@ -63,7 +63,7 @@ def stop_alerting(message):
 @bot.message_handler(commands=['check_balance'])
 def check_Balance(message):
     # Get the name and celo_address from celo_accounts.json
-    with open("celo_accounts.json", "r") as f:
+    with open("/bot_data/celo_accounts.json", "r") as f:
         data = json.load(f)
         for item in data["accounts"]:     
             name = item['Name']
@@ -84,7 +84,7 @@ def check_Balance(message):
 
 # Run a api request, get current balance and create a alert message. The function is scheduled to run at a regular interval from the schedule.every().minutes.do() method
 def check_api():
-    with open("celo_accounts.json", "r") as f:
+    with open("/bot_data/celo_accounts.json", "r") as f:
         data = json.load(f)
         for item in data["accounts"]:
             name_check = item['Name']
@@ -97,7 +97,7 @@ def check_api():
             balance_formatted_check = "{:.4f}".format(balance)+' CELO'
             message_text = f"ALERT: The balance of <b>{name_check}</b>\nis <b>{balance_formatted_check}</b>"
             if balance < 5:
-                with open("users.json", "r") as f:
+                with open("/bot_data/users.json", "r") as f:
                     data = json.load(f)
                     for users in data["users"]:
                         user_id = users['user_id']
